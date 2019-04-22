@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  cached_network_image:
+    git: git://github.com/Eimji/flutter_cached_network_image
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
 typedef void PaintCallback(Canvas canvas, Size siz);
@@ -132,6 +133,16 @@ class ParallaxImage extends StatelessWidget {
   ParallaxImage.asset(String name, {double position, this.imageFactor: 0.3})
       : assert(imageFactor != null),
         image = Image.asset(name,
+            fit: BoxFit.cover,
+            alignment: FractionalOffset(
+              0.5 + position * imageFactor,
+              0.5,
+            ));
+
+  ParallaxImage.fromCache(String url, {double position, this.imageFactor: 0.3})
+      : assert(imageFactor != null),
+        image = Image(
+            image: CachedNetworkImageProvider(url),
             fit: BoxFit.cover,
             alignment: FractionalOffset(
               0.5 + position * imageFactor,
