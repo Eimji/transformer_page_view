@@ -104,9 +104,9 @@ class TransformerPageController extends PageController {
     int? initialPage = 0,
     bool keepPage = true,
     double viewportFraction = 1.0,
-    this.loop: false,
+    this.loop = false,
     this.itemCount,
-    this.reverse: false,
+    this.reverse = false,
   }) : super(
             initialPage: TransformerPageController._getRealIndexFromRenderIndex(
                 initialPage ?? 0, loop, itemCount, reverse)!,
@@ -260,7 +260,7 @@ class TransformerPageView extends StatefulWidget {
     this.itemBuilder,
     this.pageController,
     required this.itemCount,
-  })   : assert(itemCount == 0 || itemBuilder != null || transformer != null),
+  })  : assert(itemCount == 0 || itemBuilder != null || transformer != null),
         this.duration =
             duration ?? new Duration(milliseconds: kDefaultTransactionDuration),
         super(key: key);
@@ -516,7 +516,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
       }
     }
     if (_transformer != null)
-      WidgetsBinding.instance!.addPostFrameCallback(_onGetSize);
+      WidgetsBinding.instance.addPostFrameCallback(_onGetSize);
 
     if (_controller != getNotifier()) {
       if (_controller != null) {
@@ -533,7 +533,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
   @override
   void didChangeDependencies() {
     if (_transformer != null)
-      WidgetsBinding.instance!.addPostFrameCallback(_onGetSize);
+      WidgetsBinding.instance.addPostFrameCallback(_onGetSize);
     super.didChangeDependencies();
   }
 
