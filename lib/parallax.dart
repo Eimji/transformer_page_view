@@ -3,6 +3,16 @@ import 'package:transformer_page_view/transformer_page_view.dart';
 
 typedef void PaintCallback(Canvas canvas, Size siz);
 
+extension ColorExtension on Color {
+  static int _f2I8(double x) {
+    return ((x * 255.0).round()) & 0xff;
+  }
+
+  int get intValue {
+    return _f2I8(a) << 24 | _f2I8(r) << 16 | _f2I8(g) << 8 | _f2I8(b) << 0;
+  }
+}
+
 class ColorPainter extends CustomPainter {
   final Paint _paint;
   final TransformInfo info;
@@ -25,7 +35,7 @@ class ColorPainter extends CustomPainter {
     double? position = info.position;
     if (info.forward!) {
       if (index < colors.length - 1) {
-        color = colors[index + 1].value & 0x00ffffff;
+        color = colors[index + 1].intValue & 0x00ffffff;
         opacity = (position! <= 0
             ? (-position / info.viewportFraction!)
             : 1 - position / info.viewportFraction!);
@@ -43,7 +53,7 @@ class ColorPainter extends CustomPainter {
       }
     } else {
       if (index > 0) {
-        color = colors[index - 1].value & 0x00ffffff;
+        color = colors[index - 1].intValue & 0x00ffffff;
         opacity = (position! > 0
             ? position / info.viewportFraction!
             : (1 + position / info.viewportFraction!));
@@ -105,11 +115,12 @@ class ParallaxContainer extends StatelessWidget {
   final double translationFactor;
   final double opacityFactor;
 
-  ParallaxContainer(
-      {required this.child,
-      required this.position,
-      this.translationFactor: 100.0,
-      this.opacityFactor: 1.0});
+  ParallaxContainer({
+    required this.child,
+    required this.position,
+    this.translationFactor = 100.0,
+    this.opacityFactor = 1.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +139,7 @@ class ParallaxImage extends StatelessWidget {
   final double imageFactor;
 
   ParallaxImage.asset(String name,
-      {required double position, this.imageFactor: 0.3})
+      {required double position, this.imageFactor = 0.3})
       : image = Image.asset(name,
             fit: BoxFit.cover,
             alignment: FractionalOffset(

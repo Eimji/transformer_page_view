@@ -75,7 +75,7 @@ abstract class PageTransformer {
   ///
   final bool reverse;
 
-  PageTransformer({this.reverse: false});
+  PageTransformer({this.reverse = false});
 
   /// Return a transformed widget, based on child and TransformInfo
   Widget transform(Widget child, TransformInfo info);
@@ -86,7 +86,7 @@ typedef Widget PageTransformerBuilderCallback(Widget child, TransformInfo info);
 class PageTransformerBuilder extends PageTransformer {
   final PageTransformerBuilderCallback builder;
 
-  PageTransformerBuilder({bool reverse: false, required this.builder})
+  PageTransformerBuilder({bool reverse = false, required this.builder})
       : super(reverse: reverse);
 
   @override
@@ -248,9 +248,9 @@ class TransformerPageView extends StatefulWidget {
     Key? key,
     this.index,
     Duration? duration,
-    this.curve: Curves.ease,
-    this.viewportFraction: 1.0,
-    this.loop: false,
+    this.curve = Curves.ease,
+    this.viewportFraction = 1.0,
+    this.loop = false,
     this.scrollDirection = Axis.horizontal,
     this.physics,
     this.pageSnapping = true,
@@ -269,9 +269,9 @@ class TransformerPageView extends StatefulWidget {
       {Key? key,
       int? index,
       Duration? duration,
-      Curve curve: Curves.ease,
-      double viewportFraction: 1.0,
-      bool loop: false,
+      Curve curve = Curves.ease,
+      double viewportFraction = 1.0,
+      bool loop = false,
       Axis scrollDirection = Axis.horizontal,
       ScrollPhysics? physics,
       bool pageSnapping = true,
